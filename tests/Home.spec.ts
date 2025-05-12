@@ -9,12 +9,15 @@ const test = base.extend<{ home: Home }>({
     await home.goto();
     await page.waitForTimeout(1000);
     await use(home);
-  },
-});
+  }
+})
+
 test('test01', async ({ home, page }) => {
   expect(await home.isDisPlayOk()).toBeTruthy();
-});
+})
+
 test('testClickProductItem', async ({ home, page }) => {
+  test.slow();
   await page.waitForTimeout(2000);
   const productItems = await home.getProductItems();
   for (const element of productItems) {
@@ -22,9 +25,9 @@ test('testClickProductItem', async ({ home, page }) => {
     const expectedPrice = await element.getPrice();
     const expectedDescription = await element.getDescription();
     const expectedImage = await element.getImage();
+
     await element.clickName();
     const prod = new ProductDetail(page);
-
     const actualName = await prod.getName();
     const actualImage = await prod.getImage();
     const actualDescription = await prod.getDescription();
@@ -36,9 +39,12 @@ test('testClickProductItem', async ({ home, page }) => {
     expect(expectedPrice).toEqual(actualPrice);
     await prod.clickHome();
   }
-});
+})
+
 test('testClickProductItemNextPage', async ({ home, page }) => {
+  test.slow();
   await home.clickBtnNext();
+  await page.waitForTimeout(1000);
   const productItems = await home.getProductItems();
   for (const element of productItems) {
     const expectedName = await element.getName();
@@ -62,7 +68,8 @@ test('testClickProductItemNextPage', async ({ home, page }) => {
     const home = new Home(page);
     await home.clickBtnNext();
   }
-});
+})
+
 test('selectPhoneCategory', async ({ home, page }) => {
   const expectedData = JSON.parse(readFileSync("productName.json", "utf-8"));
   const expected = expectedData["Phone"]
@@ -72,7 +79,8 @@ test('selectPhoneCategory', async ({ home, page }) => {
   const actual = await Promise.all(productItems.map(async (item) => item.getName()));
   await page.waitForTimeout(1000);
   expect(actual).toEqual(expected);
-});
+})
+
 test('selectLaptopsCategory', async ({ home, page }) => {
   const expectedData = JSON.parse(readFileSync("productName.json", "utf-8"))
   const expected = expectedData["Laptops"];
@@ -82,6 +90,7 @@ test('selectLaptopsCategory', async ({ home, page }) => {
   const actual = await Promise.all(productItems.map(async (item) => item.getName()));
   expect(actual).toEqual(expected);
 })
+
 test('selectMonitorCategory', async ({ home, page }) => {
   const expectedData = JSON.parse(readFileSync("productName.json", "utf-8"));
   const expected = expectedData["Monitors"];

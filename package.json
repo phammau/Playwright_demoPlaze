@@ -2,7 +2,9 @@
   "name": "playwright-demoplaze",
   "version": "1.0.0",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test": "npx playwright test --trace on"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",

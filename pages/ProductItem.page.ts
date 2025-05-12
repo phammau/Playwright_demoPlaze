@@ -7,6 +7,7 @@ export class ProductItem {
     private readonly name: Locator;
     private readonly price: Locator;
     private readonly description: Locator;
+    
     constructor(page: Page, index: number) {
         index++;
         this.page = page;

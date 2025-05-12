@@ -17,21 +17,24 @@ export class ProductDetail {
         this.name = this.page.locator("h2.name");
         this.price = this.page.locator("//h3[@class='price-container']");
         this.description = this.page.locator("//div[@class='tab-pane fade active in']//p");
-        this.btn_home = this.page.locator("//a[text()='Home ']")
+        this.btn_home = this.page.locator("//a[text()='Home ']");
         this.btn_addToCart = this.page.locator("//a[text()='Add to cart']");
         this.btn_cart = this.page.locator("#cartur");
     }
-    async getName() { return await this.name.textContent() }
-    async getImage() { return await this.image.getAttribute("src") }
+
+    async getName() { return await this.name.textContent() };
+    async getImage() { return await this.image.getAttribute("src") };
+    async clickHome() { await this.btn_home.click() };
+    async clickAddToCart() { await this.btn_addToCart.click() };
+    async clickBtnCart() { await this.btn_cart.click() };
+
     async getDescription() {
         const text = await this.description.textContent();
         return text ? text.trim() : "";
     }
+
     async getPrice() {
         const priceText = await this.price.textContent();
         return priceText ? parseInt(priceText.replace(/[^0-9.]/g, "")) : 0;
     }
-    async clickHome() { await this.btn_home.click() }
-    async clickAddToCart() { await this.btn_addToCart.click() }
-    async clickBtnCart() { await this.btn_cart.click() };
 }

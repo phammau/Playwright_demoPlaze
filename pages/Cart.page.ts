@@ -35,7 +35,7 @@ export class Cart {
         this.btn_Purchase = this.page.locator("//button[text()='Purchase']");
         this.purchaseSuccess = this.page.locator("//h2[text()='Thank you for your purchase!']");
         this.btn_home = this.page.locator("//a[text()='Home ']");
-        this.delete = this.page.locator("//a[text()='Delete']")
+        this.delete = this.page.locator("//a[text()='Delete']");
     }
     async isCartVisible() { return await this.productElement.isVisible() };
     async getProductItems() {
@@ -43,10 +43,12 @@ export class Cart {
         if (elements.length === 0) return [];
         return elements.map((_, i) => new CartItem(this.page, i));
     }
+
     async getTotalPrice() {
         const totalPrice = await this._totalPrice.textContent();
         return totalPrice ? parseInt(totalPrice.replace(/[^\d.]/g, "")) : 0;
     }
+
     async clickBtnPlaceOrder() { await this.btn_PlaceOrder.click() };
     async inputName(name: string) { await this._name.fill(name) };
     async inputCity(city: string) { await this._city.fill(city) };

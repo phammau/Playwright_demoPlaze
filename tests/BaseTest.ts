@@ -8,6 +8,7 @@ export class BaseTest {
     constructor(page: Page) {
         this.page = page;
     }
+
     async getMessageDialog() {
         let dialogMesage = "";
         const dialog = this.page.waitForEvent('dialog');
@@ -15,11 +16,11 @@ export class BaseTest {
         (await dialog).accept();
         return dialogMesage;
     }
+
     async autoFill() {
         const home = new Home(this.page);
-        //  await this.page.waitForTimeout(1000);
         const productItems = await home.getProductItems();
-        const randomIndex = Math.floor(Math.random() * productItems.length)//lay san pham ngau nhien
+        const randomIndex = Math.floor(Math.random() * productItems.length)
         await productItems[randomIndex].clickName();
 
         const productDetail = new ProductDetail(this.page);
@@ -34,5 +35,4 @@ export class BaseTest {
         await cart.inputMonth("3");
         await cart.inputYear("2025");
     }
-
 }
